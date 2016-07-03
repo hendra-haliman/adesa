@@ -1,0 +1,39 @@
+<project name="adesa_web">
+	<target name="prepare">
+		<!--todo : clean up folder, make folder-->
+	</target>
+	
+	<target name="compress" >
+		<zip basedir="." destfile="adesa_web.zip" excludes="build.xml,adesa_web.zip" >
+		</zip>
+	</target>
+	
+	<target name="dump_sql">
+		<exec executable="mysqldump" output="hsisoftw_adesa_web.sql">
+			<arg value="--user=hsisoftw_adesa_web" />
+			<arg value="--password=Superman1" />
+			<arg value="--host=localhost" />
+			<arg value="--port=3306" />
+			<arg value="hsisoftw_adesa_web" />
+		</exec>
+	</target>
+	
+	<target name="upload">
+		<ftp server="ftp.hsi-software.com" remotedir="~/public_html" userid="hsisoftw" password="" verbose="yes" passive="yes">
+			<fileset dir=".">
+				<include name="hsisoftw_adesa_web.sql" />
+				<include name="adesa_web.zip" />
+			</fileset>
+		</ftp>
+	</target>
+	
+	<target name="deploy_local">
+		<sync todir="c:\apache24\htdocs\adesa">
+			<fileset dir="." /> 
+		</sync>	
+	</target>
+		
+	<target name="complete" depends="compress,dump_sql,upload">
+	
+	</target>
+</project>
