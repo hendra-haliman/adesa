@@ -8,14 +8,19 @@ class MY_BaseController extends CI_Controller {
 
 	public function index($lang_id='en')
 	{
-		if ($lang_id=='en') {
+		if ($lang_id=='en') 
+		{
 			$lang_name = 'english';	
-		} elseif ($lang_id=='id') {
+		} elseif ($lang_id=='id') 
+		{
 			$lang_name = 'indonesian';	
+		} elseif ($lang_id='kr')
+		{
+			$lang_name = 'korean';	
 		} else
 		{
-			$lang_id = 'kr';
-			$lang_name = 'korean';	
+			$lang_id = 'en';
+			$lang_name = 'english';	
 		}
 		
 		$this->lang->load($lang_id, $lang_name);
